@@ -1,0 +1,13 @@
+#title {
+	font-size: 4em;
+	font-weight: bold;
+	margin: 20px;
+}
+
+.header{
+	font-weight: bold;
+}
+
+.header td{
+	width: 100px;
+}
