@@ -1,0 +1,266 @@
+Wed Jan 11 13:17:23 GMT 2012,LOGGING,Log restarted
+Wed Jan 11 13:17:23 GMT 2012,Handler,Operation completed.
+Wed Jan 11 13:17:23 GMT 2012,RestartLogs,COMPLETION: Succeeded
+Wed Jan 11 13:17:23 GMT 2012,Handler,Query DataElement with meta id = 52300
+Wed Jan 11 13:17:23 GMT 2012,Handler,SQL:            SELECT ID,                  DESCRIPTION,                  TASK_ID,                  RUN_AT,                  START_TIME,                  END_TIME,                  STATUS,                  UPDATE_USER,                  UPDATE_TIME           FROM SY_TASK_QUEUE           WHERE               STATUS = 'QUEUED'               AND (RUN_AT IS NULL OR RUN_AT <= ?)           ORDER BY UPDATE_TIME         
+Wed Jan 11 13:17:23 GMT 2012,Handler,           SELECT ID,                  DESCRIPTION,                  TASK_ID,                  RUN_AT,                  START_TIME,                  END_TIME,                  STATUS,                  UPDATE_USER,                  UPDATE_TIME           FROM SY_TASK_QUEUE           WHERE               STATUS = 'QUEUED'               AND (RUN_AT IS NULL OR RUN_AT <= '20120111 13:17:23')           ORDER BY UPDATE_TIME         
+Wed Jan 11 13:17:23 GMT 2012,Handler,Total results:0
+Wed Jan 11 13:17:23 GMT 2012,Handler,Query Operation completed.
+Wed Jan 11 13:17:49 GMT 2012,Handler,Execute update for records to Meta: 52304, Operation = INSERT
+Wed Jan 11 13:17:49 GMT 2012,Handler,Executing single command, cmd id = Insert.
+Wed Jan 11 13:17:49 GMT 2012,Handler,           INSERT INTO SY_TASK_HISTORY (ID, TASK_ID, START_TIME, END_TIME, STATUS)           VALUES (924041, 'pLoadMarketIndexName', '2012-01-11 13:17:49.6', NULL, 'Running')         
+Wed Jan 11 13:17:49 GMT 2012,Handler,Operation completed.
+Wed Jan 11 13:17:49 GMT 2012,pLoadMarketIndexName,START
+Wed Jan 11 13:17:49 GMT 2012,pLoadMarketIndexName,Stage 1 of 1 : Repeat
+Wed Jan 11 13:17:49 GMT 2012,pLoadMarketIndexName, - FileMonitorWrapper
+Wed Jan 11 13:17:49 GMT 2012,pLoadMarketIndexName,FileMonitor: waiting for files, FileMonitor(hasTimeout=true,timeoutValue=5,skipNotFoundValue=true,dirPathValue=F:/PPSS/depot/,conditions=[0=FileMonitorFilter(index=0,prefix=null,substring=.MKTINDEXNAME.,suffix=XML,regex=null)],matchedFilesValue=NULL,matchedKeyValue=null)
+Wed Jan 11 13:17:49 GMT 2012,pLoadMarketIndexName,FileMonitor: finished waiting, found:BP.MKTINDEXNAME.D20120110.T122231728.xml;. key:0
+Wed Jan 11 13:17:49 GMT 2012,pLoadMarketIndexName,File Monitor: detected BP.MKTINDEXNAME.D20120110.T122231728.xml;, key 0
+Wed Jan 11 13:17:49 GMT 2012,pLoadMarketIndexName, - GlobalLock
+Wed Jan 11 13:17:49 GMT 2012,pLoadMarketIndexName,Stage 1 of 2 : com.prosrm.datamanager.taskwrappers.ChunkReaderParallelLoad
+Wed Jan 11 13:17:50 GMT 2012,pLoadMarketIndexName,Loading data file F:\PPSS\depot\BP.MKTINDEXNAME.D20120110.T122231728.xml
+Wed Jan 11 13:17:50 GMT 2012,pLoadMarketIndexName,RULEENGINE: Number of records processed = 0
+Wed Jan 11 13:17:50 GMT 2012,pLoadMarketIndexName,RULEENGINE: Number of records rejected = 0
+Wed Jan 11 13:17:50 GMT 2012,pLoadMarketIndexName,RULEENGINE: Number of records with warnings = 0
+Wed Jan 11 13:17:50 GMT 2012,pLoadMarketIndexName,DATALOADER: Number of errors = 0
+Wed Jan 11 13:17:50 GMT 2012,pLoadMarketIndexName,DATALOADER: Number of rows inserted into table = 0
+Wed Jan 11 13:17:50 GMT 2012,pLoadMarketIndexName,DATALOADER: Number of updated rows in table = 3
+Wed Jan 11 13:17:50 GMT 2012,pLoadMarketIndexName,DATALOADER: Total number of records = 3
+Wed Jan 11 13:17:50 GMT 2012,pLoadMarketIndexName,DATALOADER: Number of child errors = 0
+Wed Jan 11 13:17:50 GMT 2012,pLoadMarketIndexName,DATALOADER: Number of rows inserted into child tables = 0
+Wed Jan 11 13:17:50 GMT 2012,pLoadMarketIndexName,DATALOADER: Number of updated rows in child tables = 0
+Wed Jan 11 13:17:50 GMT 2012,pLoadMarketIndexName,DATALOADER: Total number of child records = 0
+Wed Jan 11 13:17:50 GMT 2012,pLoadMarketIndexName,Start time: 2012_01_11_13.17.49: 
+Wed Jan 11 13:17:50 GMT 2012,pLoadMarketIndexName,End time:   2012_01_11_13.17.50: 
+Wed Jan 11 13:17:50 GMT 2012,pLoadMarketIndexName,Stage 2 of 2 : FileRename
+Wed Jan 11 13:17:50 GMT 2012,pLoadMarketIndexName,File Rename: renaming BP.MKTINDEXNAME.D20120110.T122231728.xml
+Wed Jan 11 13:17:50 GMT 2012,pLoadMarketIndexName, - FileMonitorWrapper
+Wed Jan 11 13:17:50 GMT 2012,pLoadMarketIndexName,FileMonitor: waiting for files, FileMonitor(hasTimeout=true,timeoutValue=5,skipNotFoundValue=true,dirPathValue=F:/PPSS/depot/,conditions=[0=FileMonitorFilter(index=0,prefix=null,substring=.MKTINDEXNAME.,suffix=XML,regex=null)],matchedFilesValue=NULL,matchedKeyValue=null)
+Wed Jan 11 13:17:53 GMT 2012,Handler,Query DataElement with meta id = 52300
+Wed Jan 11 13:17:53 GMT 2012,Handler,SQL:            SELECT ID,                  DESCRIPTION,                  TASK_ID,                  RUN_AT,                  START_TIME,                  END_TIME,                  STATUS,                  UPDATE_USER,                  UPDATE_TIME           FROM SY_TASK_QUEUE           WHERE               STATUS = 'QUEUED'               AND (RUN_AT IS NULL OR RUN_AT <= ?)           ORDER BY UPDATE_TIME         
+Wed Jan 11 13:17:53 GMT 2012,Handler,           SELECT ID,                  DESCRIPTION,                  TASK_ID,                  RUN_AT,                  START_TIME,                  END_TIME,                  STATUS,                  UPDATE_USER,                  UPDATE_TIME           FROM SY_TASK_QUEUE           WHERE               STATUS = 'QUEUED'               AND (RUN_AT IS NULL OR RUN_AT <= '20120111 13:17:53')           ORDER BY UPDATE_TIME         
+Wed Jan 11 13:17:53 GMT 2012,Handler,Total results:0
+Wed Jan 11 13:17:53 GMT 2012,Handler,Query Operation completed.
+Wed Jan 11 13:18:00 GMT 2012,Handler,Execute update for records to Meta: 52304, Operation = UPDATE
+Wed Jan 11 13:18:00 GMT 2012,Handler,Executing single command, cmd id = Update.
+Wed Jan 11 13:18:00 GMT 2012,Handler,           UPDATE SY_TASK_HISTORY SET END_TIME = '2012-01-11 13:18:00.624', STATUS = 'COMPLETED' WHERE ID = 924041         
+Wed Jan 11 13:18:00 GMT 2012,Handler,Operation completed.
+Wed Jan 11 13:18:00 GMT 2012,pLoadMarketIndexName,COMPLETION: Succeeded
+Wed Jan 11 13:18:05 GMT 2012,Handler,Execute update for records to Meta: 52304, Operation = INSERT
+Wed Jan 11 13:18:05 GMT 2012,Handler,Executing single command, cmd id = Insert.
+Wed Jan 11 13:18:05 GMT 2012,Handler,           INSERT INTO SY_TASK_HISTORY (ID, TASK_ID, START_TIME, END_TIME, STATUS)           VALUES (924042, 'pLoadMarketIndexValues', '2012-01-11 13:18:05.644', NULL, 'Running')         
+Wed Jan 11 13:18:05 GMT 2012,Handler,Operation completed.
+Wed Jan 11 13:18:05 GMT 2012,pLoadMarketIndexValues,START
+Wed Jan 11 13:18:05 GMT 2012,pLoadMarketIndexValues,Stage 1 of 1 : Repeat
+Wed Jan 11 13:18:05 GMT 2012,pLoadMarketIndexValues, - FileMonitorWrapper
+Wed Jan 11 13:18:05 GMT 2012,pLoadMarketIndexValues,FileMonitor: waiting for files, FileMonitor(hasTimeout=true,timeoutValue=5,skipNotFoundValue=true,dirPathValue=F:/PPSS/depot/,conditions=[0=FileMonitorFilter(index=0,prefix=null,substring=.MKTINDEX.,suffix=XML,regex=null)],matchedFilesValue=NULL,matchedKeyValue=null)
+Wed Jan 11 13:18:05 GMT 2012,pLoadMarketIndexValues,FileMonitor: finished waiting, found:BP.MKTINDEX.D20120110.T122434443.D20120110.T122516739.xml;. key:0
+Wed Jan 11 13:18:05 GMT 2012,pLoadMarketIndexValues,File Monitor: detected BP.MKTINDEX.D20120110.T122434443.D20120110.T122516739.xml;, key 0
+Wed Jan 11 13:18:05 GMT 2012,pLoadMarketIndexValues, - GlobalLock
+Wed Jan 11 13:18:05 GMT 2012,pLoadMarketIndexValues,Stage 1 of 2 : com.prosrm.datamanager.taskwrappers.ChunkReaderParallelLoad
+Wed Jan 11 13:18:06 GMT 2012,pLoadMarketIndexValues,Loading data file F:\PPSS\depot\BP.MKTINDEX.D20120110.T122434443.D20120110.T122516739.xml
+Wed Jan 11 13:18:06 GMT 2012,pLoadMarketIndexValues,RULEENGINE: Number of records processed = 0
+Wed Jan 11 13:18:06 GMT 2012,pLoadMarketIndexValues,RULEENGINE: Number of records rejected = 0
+Wed Jan 11 13:18:06 GMT 2012,pLoadMarketIndexValues,RULEENGINE: Number of records with warnings = 0
+Wed Jan 11 13:18:06 GMT 2012,pLoadMarketIndexValues,DATALOADER: Number of errors = 0
+Wed Jan 11 13:18:06 GMT 2012,pLoadMarketIndexValues,DATALOADER: Number of rows inserted into table = 0
+Wed Jan 11 13:18:06 GMT 2012,pLoadMarketIndexValues,DATALOADER: Number of updated rows in table = 54
+Wed Jan 11 13:18:06 GMT 2012,pLoadMarketIndexValues,DATALOADER: Total number of records = 54
+Wed Jan 11 13:18:06 GMT 2012,pLoadMarketIndexValues,DATALOADER: Number of child errors = 0
+Wed Jan 11 13:18:06 GMT 2012,pLoadMarketIndexValues,DATALOADER: Number of rows inserted into child tables = 0
+Wed Jan 11 13:18:06 GMT 2012,pLoadMarketIndexValues,DATALOADER: Number of updated rows in child tables = 0
+Wed Jan 11 13:18:06 GMT 2012,pLoadMarketIndexValues,DATALOADER: Total number of child records = 0
+Wed Jan 11 13:18:06 GMT 2012,pLoadMarketIndexValues,Start time: 2012_01_11_13.18.05: 
+Wed Jan 11 13:18:06 GMT 2012,pLoadMarketIndexValues,End time:   2012_01_11_13.18.06: 
+Wed Jan 11 13:18:06 GMT 2012,pLoadMarketIndexValues,Stage 2 of 2 : FileRename
+Wed Jan 11 13:18:06 GMT 2012,pLoadMarketIndexValues,File Rename: renaming BP.MKTINDEX.D20120110.T122434443.D20120110.T122516739.xml
+Wed Jan 11 13:18:06 GMT 2012,pLoadMarketIndexValues, - FileMonitorWrapper
+Wed Jan 11 13:18:06 GMT 2012,pLoadMarketIndexValues,FileMonitor: waiting for files, FileMonitor(hasTimeout=true,timeoutValue=5,skipNotFoundValue=true,dirPathValue=F:/PPSS/depot/,conditions=[0=FileMonitorFilter(index=0,prefix=null,substring=.MKTINDEX.,suffix=XML,regex=null)],matchedFilesValue=NULL,matchedKeyValue=null)
+Wed Jan 11 13:18:16 GMT 2012,Handler,Execute update for records to Meta: 52304, Operation = UPDATE
+Wed Jan 11 13:18:16 GMT 2012,Handler,Executing single command, cmd id = Update.
+Wed Jan 11 13:18:16 GMT 2012,Handler,           UPDATE SY_TASK_HISTORY SET END_TIME = '2012-01-11 13:18:16.668', STATUS = 'COMPLETED' WHERE ID = 924042         
+Wed Jan 11 13:18:16 GMT 2012,Handler,Operation completed.
+Wed Jan 11 13:18:16 GMT 2012,pLoadMarketIndexValues,COMPLETION: Succeeded
+Wed Jan 11 13:18:22 GMT 2012,Handler,Execute update for records to Meta: 52304, Operation = INSERT
+Wed Jan 11 13:18:22 GMT 2012,Handler,Executing single command, cmd id = Insert.
+Wed Jan 11 13:18:22 GMT 2012,Handler,           INSERT INTO SY_TASK_HISTORY (ID, TASK_ID, START_TIME, END_TIME, STATUS)           VALUES (924043, 'PostProcessIndex', '2012-01-11 13:18:22.172', NULL, 'Running')         
+Wed Jan 11 13:18:22 GMT 2012,Handler,Operation completed.
+Wed Jan 11 13:18:22 GMT 2012,PostProcessIndex,START
+Wed Jan 11 13:18:22 GMT 2012,PostProcessIndex,Stage 1 of 3 : TaskStart
+Wed Jan 11 13:18:22 GMT 2012,Handler,Execute update for records to Meta: 52304, Operation = INSERT
+Wed Jan 11 13:18:22 GMT 2012,Handler,Executing single command, cmd id = Insert.
+Wed Jan 11 13:18:22 GMT 2012,Handler,           INSERT INTO SY_TASK_HISTORY (ID, TASK_ID, START_TIME, END_TIME, STATUS)           VALUES (924044, 'PopulateIndexes', '2012-01-11 13:18:22.172', NULL, 'Running')         
+Wed Jan 11 13:18:22 GMT 2012,Handler,Operation completed.
+Wed Jan 11 13:18:22 GMT 2012,PopulateIndexes,START
+Wed Jan 11 13:18:22 GMT 2012,PopulateIndexes,Stage 1 of 1 : com.prosrm.taskmanager.taskwrappers.RuleProcessorTaskWrapper
+Wed Jan 11 13:18:22 GMT 2012,TaskInvocationStatus, created
+Wed Jan 11 13:18:22 GMT 2012,SessionManager,Start a new page session.
+Wed Jan 11 13:18:22 GMT 2012,PageSession,PageSession com.prosrm.data.dac.impl.ForwardDataSession@26bdff5e created.
+Wed Jan 11 13:18:22 GMT 2012,PageSession,Forward Data Session query for DataElement.
+Wed Jan 11 13:18:22 GMT 2012,PageSession,Forward Data Session query for DataElement.
+Wed Jan 11 13:18:22 GMT 2012,Handler,SQL:                      SELECT               MARKET_INDEX_NAME,               DESCRIPTION,               REQ_REVIEW_FLAG           FROM              (             SELECT                MARKET_INDEX_NAME,                 DESCRIPTION,                 REQ_REVIEW_FLAG             FROM                  PM_IF_MARKET_INDEX_NAME               WHERE                 POSTPROCESS_STATE = 0               UNION ALL             SELECT                MARKET_INDEX_NAME,                 NULL AS DESCRIPTION,                 'Y' AS REQ_REVIEW_FLAG             FROM                PM_IF_MARKET_INDEX              WHERE                POSTPROCESS_STATE = 0                AND MARKET_INDEX_NAME NOT IN               (                 SELECT INDEX_NAME                 FROM PM_INDEX                                 )                             AND MARKET_INDEX_NAME NOT IN               (                  SELECT MARKET_INDEX_NAME                  FROM PM_IF_MARKET_INDEX_NAME                  WHERE POSTPROCESS_STATE = 0               )                         )TEMP           ORDER BY MARKET_INDEX_NAME         
+Wed Jan 11 13:18:22 GMT 2012,Handler,Create Cursor: Key=                     SELECT               MARKET_INDEX_NAME,               DESCRIPTION,               REQ_REVIEW_FLAG           FROM              (             SELECT                MARKET_INDEX_NAME,                 DESCRIPTION,                 REQ_REVIEW_FLAG             FROM                  PM_IF_MARKET_INDEX_NAME               WHERE                 POSTPROCESS_STATE = 0               UNION ALL             SELECT                MARKET_INDEX_NAME,                 NULL AS DESCRIPTION,                 'Y' AS REQ_REVIEW_FLAG             FROM                PM_IF_MARKET_INDEX              WHERE                POSTPROCESS_STATE = 0                AND MARKET_INDEX_NAME NOT IN               (                 SELECT INDEX_NAME                 FROM PM_INDEX                                 )                             AND MARKET_INDEX_NAME NOT IN               (                  SELECT MARKET_INDEX_NAME                  FROM PM_IF_MARKET_INDEX_NAME                  WHERE POSTPROCESS_STATE = 0               )                         )TEMP           ORDER BY MARKET_INDEX_NAME         
+Wed Jan 11 13:18:22 GMT 2012,Handler,Opened forward only cursor.
+Wed Jan 11 13:18:22 GMT 2012,Handler,New cursor created.
+Wed Jan 11 13:18:22 GMT 2012,QuerySession,Forward cursor created for metaid 300001
+Wed Jan 11 13:18:22 GMT 2012,QuerySession,Cursor released.
+Wed Jan 11 13:18:22 GMT 2012,PageSession,PageSession com.prosrm.data.dac.impl.ForwardDataSession@26bdff5e closed.
+Wed Jan 11 13:18:22 GMT 2012,PopulateIndexes,Status : Completed with errors
+Total chunks = 2
+Successful chunks = 0
+Failed chunks = 2
+
+Wed Jan 11 13:18:22 GMT 2012,Handler,Execute update for records to Meta: 52304, Operation = UPDATE
+Wed Jan 11 13:18:22 GMT 2012,Handler,Executing single command, cmd id = Fail.
+Wed Jan 11 13:18:22 GMT 2012,Handler,           UPDATE SY_TASK_HISTORY SET END_TIME = '2012-01-11 13:18:22.313', STATUS = 'FAILED' WHERE ID = 924044         
+Wed Jan 11 13:18:22 GMT 2012,Handler,Operation completed.
+Wed Jan 11 13:18:22 GMT 2012,PopulateIndexes,COMPLETION: Completed with errors
+Wed Jan 11 13:18:22 GMT 2012,PostProcessIndex,Stage 2 of 3 : RefreshTypeManagerCache
+Wed Jan 11 13:18:22 GMT 2012,PostProcessIndex,Stage 3 of 3 : TaskStart
+Wed Jan 11 13:18:22 GMT 2012,Handler,Execute update for records to Meta: 52304, Operation = INSERT
+Wed Jan 11 13:18:22 GMT 2012,Handler,Executing single command, cmd id = Insert.
+Wed Jan 11 13:18:22 GMT 2012,Handler,           INSERT INTO SY_TASK_HISTORY (ID, TASK_ID, START_TIME, END_TIME, STATUS)           VALUES (924045, 'PopulateIndexValues', '2012-01-11 13:18:22.375', NULL, 'Running')         
+Wed Jan 11 13:18:22 GMT 2012,Handler,Operation completed.
+Wed Jan 11 13:18:22 GMT 2012,PopulateIndexValues,START
+Wed Jan 11 13:18:22 GMT 2012,PopulateIndexValues,Stage 1 of 1 : com.prosrm.taskmanager.taskwrappers.RuleProcessorTaskWrapper
+Wed Jan 11 13:18:22 GMT 2012,TaskInvocationStatus, created
+Wed Jan 11 13:18:22 GMT 2012,SessionManager,Start a new page session.
+Wed Jan 11 13:18:22 GMT 2012,PageSession,PageSession com.prosrm.data.dac.impl.ForwardDataSession@1b8c0f3e created.
+Wed Jan 11 13:18:22 GMT 2012,PageSession,Forward Data Session query for DataElement.
+Wed Jan 11 13:18:22 GMT 2012,PageSession,Forward Data Session query for DataElement.
+Wed Jan 11 13:18:22 GMT 2012,Handler,SQL:            SELECT              MARKET_INDEX_NAME,              MARKET_INDEX_TIME           FROM               PM_IF_MARKET_INDEX            WHERE POSTPROCESS_STATE = 0           ORDER BY MARKET_INDEX_NAME, MARKET_INDEX_TIME         
+Wed Jan 11 13:18:22 GMT 2012,Handler,Create Cursor: Key=           SELECT              MARKET_INDEX_NAME,              MARKET_INDEX_TIME           FROM               PM_IF_MARKET_INDEX            WHERE POSTPROCESS_STATE = 0           ORDER BY MARKET_INDEX_NAME, MARKET_INDEX_TIME         
+Wed Jan 11 13:18:22 GMT 2012,Handler,Opened forward only cursor.
+Wed Jan 11 13:18:22 GMT 2012,Handler,New cursor created.
+Wed Jan 11 13:18:22 GMT 2012,QuerySession,Forward cursor created for metaid 300001
+Wed Jan 11 13:18:22 GMT 2012,QuerySession,Cursor released.
+Wed Jan 11 13:18:22 GMT 2012,PageSession,PageSession com.prosrm.data.dac.impl.ForwardDataSession@1b8c0f3e closed.
+Wed Jan 11 13:18:23 GMT 2012,Handler,Query DataElement with meta id = 52300
+Wed Jan 11 13:18:23 GMT 2012,Handler,SQL:            SELECT ID,                  DESCRIPTION,                  TASK_ID,                  RUN_AT,                  START_TIME,                  END_TIME,                  STATUS,                  UPDATE_USER,                  UPDATE_TIME           FROM SY_TASK_QUEUE           WHERE               STATUS = 'QUEUED'               AND (RUN_AT IS NULL OR RUN_AT <= ?)           ORDER BY UPDATE_TIME         
+Wed Jan 11 13:18:23 GMT 2012,Handler,           SELECT ID,                  DESCRIPTION,                  TASK_ID,                  RUN_AT,                  START_TIME,                  END_TIME,                  STATUS,                  UPDATE_USER,                  UPDATE_TIME           FROM SY_TASK_QUEUE           WHERE               STATUS = 'QUEUED'               AND (RUN_AT IS NULL OR RUN_AT <= '20120111 13:18:23')           ORDER BY UPDATE_TIME         
+Wed Jan 11 13:18:23 GMT 2012,Handler,Total results:0
+Wed Jan 11 13:18:23 GMT 2012,Handler,Query Operation completed.
+Wed Jan 11 13:18:24 GMT 2012,Handler,Execute update for records to Meta: 52304, Operation = UPDATE
+Wed Jan 11 13:18:24 GMT 2012,Handler,Executing single command, cmd id = Update.
+Wed Jan 11 13:18:24 GMT 2012,Handler,           UPDATE SY_TASK_HISTORY SET END_TIME = '2012-01-11 13:18:24.658', STATUS = 'COMPLETED' WHERE ID = 924045         
+Wed Jan 11 13:18:24 GMT 2012,Handler,Operation completed.
+Wed Jan 11 13:18:24 GMT 2012,PopulateIndexValues,COMPLETION: Succeeded
+Wed Jan 11 13:18:24 GMT 2012,Handler,Execute update for records to Meta: 52304, Operation = UPDATE
+Wed Jan 11 13:18:24 GMT 2012,Handler,Executing single command, cmd id = Fail.
+Wed Jan 11 13:18:24 GMT 2012,Handler,           UPDATE SY_TASK_HISTORY SET END_TIME = '2012-01-11 13:18:24.658', STATUS = 'FAILED' WHERE ID = 924043         
+Wed Jan 11 13:18:24 GMT 2012,Handler,Operation completed.
+Wed Jan 11 13:18:24 GMT 2012,PostProcessIndex,COMPLETION: Completed with errors
+Wed Jan 11 13:18:53 GMT 2012,Handler,Query DataElement with meta id = 52300
+Wed Jan 11 13:18:53 GMT 2012,Handler,SQL:            SELECT ID,                  DESCRIPTION,                  TASK_ID,                  RUN_AT,                  START_TIME,                  END_TIME,                  STATUS,                  UPDATE_USER,                  UPDATE_TIME           FROM SY_TASK_QUEUE           WHERE               STATUS = 'QUEUED'               AND (RUN_AT IS NULL OR RUN_AT <= ?)           ORDER BY UPDATE_TIME         
+Wed Jan 11 13:18:53 GMT 2012,Handler,           SELECT ID,                  DESCRIPTION,                  TASK_ID,                  RUN_AT,                  START_TIME,                  END_TIME,                  STATUS,                  UPDATE_USER,                  UPDATE_TIME           FROM SY_TASK_QUEUE           WHERE               STATUS = 'QUEUED'               AND (RUN_AT IS NULL OR RUN_AT <= '20120111 13:18:53')           ORDER BY UPDATE_TIME         
+Wed Jan 11 13:18:53 GMT 2012,Handler,Total results:0
+Wed Jan 11 13:18:53 GMT 2012,Handler,Query Operation completed.
+Wed Jan 11 13:18:53 GMT 2012,Handler,Execute update for records to Meta: 52304, Operation = INSERT
+Wed Jan 11 13:18:53 GMT 2012,Handler,Executing single command, cmd id = Insert.
+Wed Jan 11 13:18:53 GMT 2012,Handler,           INSERT INTO SY_TASK_HISTORY (ID, TASK_ID, START_TIME, END_TIME, STATUS)           VALUES (924046, 'AsyncOnDealAcceptTask', '2012-01-11 13:18:53.9', NULL, 'Running')         
+Wed Jan 11 13:18:53 GMT 2012,Handler,Operation completed.
+Wed Jan 11 13:18:53 GMT 2012,AsyncOnDealAcceptTask,START
+Wed Jan 11 13:18:53 GMT 2012,Handler,Execute update for records to Meta: 52304, Operation = UPDATE
+Wed Jan 11 13:18:53 GMT 2012,Handler,Executing single command, cmd id = Update.
+Wed Jan 11 13:18:53 GMT 2012,Handler,           UPDATE SY_TASK_HISTORY SET END_TIME = '2012-01-11 13:18:53.915', STATUS = 'COMPLETED' WHERE ID = 924046         
+Wed Jan 11 13:18:53 GMT 2012,Handler,Operation completed.
+Wed Jan 11 13:18:53 GMT 2012,AsyncOnDealAcceptTask,COMPLETION: Succeeded
+Wed Jan 11 13:18:53 GMT 2012,Handler,Execute update for records to Meta: 52304, Operation = INSERT
+Wed Jan 11 13:18:53 GMT 2012,Handler,Executing single command, cmd id = Insert.
+Wed Jan 11 13:18:53 GMT 2012,Handler,           INSERT INTO SY_TASK_HISTORY (ID, TASK_ID, START_TIME, END_TIME, STATUS)           VALUES (924047, 'OnDealAcceptTask', '2012-01-11 13:18:53.915', NULL, 'Running')         
+Wed Jan 11 13:18:53 GMT 2012,Handler,Operation completed.
+Wed Jan 11 13:18:53 GMT 2012,OnDealAcceptTask,START
+Wed Jan 11 13:18:53 GMT 2012,OnDealAcceptTask,Stage 1 of 1 : com.prosrm.taskmanager.taskwrappers.RuleProcessorTaskWrapper
+Wed Jan 11 13:18:53 GMT 2012,TaskInvocationStatus, created
+Wed Jan 11 13:18:54 GMT 2012,Handler,Execute update for records to Meta: 52304, Operation = INSERT
+Wed Jan 11 13:18:54 GMT 2012,Handler,Executing single command, cmd id = Insert.
+Wed Jan 11 13:18:54 GMT 2012,Handler,           INSERT INTO SY_TASK_HISTORY (ID, TASK_ID, START_TIME, END_TIME, STATUS)           VALUES (924048, 'PublishAllPendingPriceData', '2012-01-11 13:18:54.51', NULL, 'Running')         
+Wed Jan 11 13:18:54 GMT 2012,Handler,Operation completed.
+Wed Jan 11 13:18:54 GMT 2012,PublishAllPendingPriceData,START
+Wed Jan 11 13:18:54 GMT 2012,PublishAllPendingPriceData,Stage 1 of 2 : TaskStart
+Wed Jan 11 13:18:54 GMT 2012,Handler,Execute update for records to Meta: 52304, Operation = INSERT
+Wed Jan 11 13:18:54 GMT 2012,Handler,Executing single command, cmd id = Insert.
+Wed Jan 11 13:18:54 GMT 2012,Handler,           INSERT INTO SY_TASK_HISTORY (ID, TASK_ID, START_TIME, END_TIME, STATUS)           VALUES (924049, 'PublishNotIntraDayPendingPriceData', '2012-01-11 13:18:54.51', NULL, 'Running')         
+Wed Jan 11 13:18:54 GMT 2012,Handler,Operation completed.
+Wed Jan 11 13:18:54 GMT 2012,PublishNotIntraDayPendingPriceData,START
+Wed Jan 11 13:18:54 GMT 2012,PublishNotIntraDayPendingPriceData,Stage 1 of 1 : GlobalLock
+Wed Jan 11 13:18:54 GMT 2012,PublishNotIntraDayPendingPriceData,Stage 1 of 1 : com.prosrm.taskmanager.taskwrappers.RuleProcessorTaskWrapper
+Wed Jan 11 13:18:54 GMT 2012,TaskInvocationStatus, created
+Wed Jan 11 13:18:54 GMT 2012,SessionManager,Start a new page session.
+Wed Jan 11 13:18:54 GMT 2012,PageSession,PageSession com.prosrm.data.dac.impl.ForwardDataSession@164a7140 created.
+Wed Jan 11 13:18:54 GMT 2012,PageSession,Forward Data Session query for DataElement.
+Wed Jan 11 13:18:54 GMT 2012,PageSession,Forward Data Session query for DataElement.
+Wed Jan 11 13:18:54 GMT 2012,Handler,SQL:            SELECT             DISTINCT A.PRICE_ITEM_ID           FROM             PM_PRICE_RECORD A,             PM_PRICE_ITEM B,             PM_PRICE_LEVEL C,             PM_COMPONENT_TYPE D           WHERE             A.APPROVAL_STATUS = 'PendingPublish' AND             A.PRICE_ITEM_ID = B.PRICE_ITEM_ID AND                         B.PRICE_LEVEL_ID = C.PRICE_LEVEL_ID AND             C.COMPONENT_TYPE_ID = D.COMPONENT_TYPE_ID AND             (D.SCALE_BASIS IS NULL OR D.SCALE_BASIS != 'Time') AND             C.PUBLISH_LEVEL_FLAG = 1           ORDER BY A.PRICE_ITEM_ID         
+Wed Jan 11 13:18:54 GMT 2012,Handler,Create Cursor: Key=           SELECT             DISTINCT A.PRICE_ITEM_ID           FROM             PM_PRICE_RECORD A,             PM_PRICE_ITEM B,             PM_PRICE_LEVEL C,             PM_COMPONENT_TYPE D           WHERE             A.APPROVAL_STATUS = 'PendingPublish' AND             A.PRICE_ITEM_ID = B.PRICE_ITEM_ID AND                         B.PRICE_LEVEL_ID = C.PRICE_LEVEL_ID AND             C.COMPONENT_TYPE_ID = D.COMPONENT_TYPE_ID AND             (D.SCALE_BASIS IS NULL OR D.SCALE_BASIS != 'Time') AND             C.PUBLISH_LEVEL_FLAG = 1           ORDER BY A.PRICE_ITEM_ID         
+Wed Jan 11 13:18:54 GMT 2012,Handler,Opened forward only cursor.
+Wed Jan 11 13:18:54 GMT 2012,Handler,New cursor created.
+Wed Jan 11 13:18:54 GMT 2012,QuerySession,Forward cursor created for metaid 300058
+Wed Jan 11 13:18:54 GMT 2012,QuerySession,Cursor released.
+Wed Jan 11 13:18:54 GMT 2012,PageSession,PageSession com.prosrm.data.dac.impl.ForwardDataSession@164a7140 closed.
+Wed Jan 11 13:19:04 GMT 2012,PublishNotIntraDayPendingPriceData,Status : Completed with errors
+Total chunks = 1
+Successful chunks = 0
+Failed chunks = 2
+
+Wed Jan 11 13:19:04 GMT 2012,Handler,Execute update for records to Meta: 52304, Operation = UPDATE
+Wed Jan 11 13:19:04 GMT 2012,Handler,Executing single command, cmd id = Fail.
+Wed Jan 11 13:19:04 GMT 2012,Handler,           UPDATE SY_TASK_HISTORY SET END_TIME = '2012-01-11 13:19:04.189', STATUS = 'FAILED' WHERE ID = 924049         
+Wed Jan 11 13:19:04 GMT 2012,Handler,Operation completed.
+Wed Jan 11 13:19:04 GMT 2012,PublishNotIntraDayPendingPriceData,COMPLETION: Completed with errors
+Wed Jan 11 13:19:04 GMT 2012,Handler,Execute update for records to Meta: 52304, Operation = INSERT
+Wed Jan 11 13:19:04 GMT 2012,Handler,Executing single command, cmd id = Insert.
+Wed Jan 11 13:19:04 GMT 2012,Handler,           INSERT INTO SY_TASK_HISTORY (ID, TASK_ID, START_TIME, END_TIME, STATUS)           VALUES (924050, 'After_PublishNotIntraDayPendingPriceData', '2012-01-11 13:19:04.205', NULL, 'Running')         
+Wed Jan 11 13:19:04 GMT 2012,Handler,Operation completed.
+Wed Jan 11 13:19:04 GMT 2012,After_PublishNotIntraDayPendingPriceData,START
+Wed Jan 11 13:19:04 GMT 2012,After_PublishNotIntraDayPendingPriceData,Stage 1 of 1 : com.prosrm.taskmanager.taskwrappers.EndOfFileGroupSignal
+Wed Jan 11 13:19:04 GMT 2012,Handler,Execute update for records to Meta: 52304, Operation = UPDATE
+Wed Jan 11 13:19:04 GMT 2012,Handler,Executing single command, cmd id = Update.
+Wed Jan 11 13:19:04 GMT 2012,Handler,           UPDATE SY_TASK_HISTORY SET END_TIME = '2012-01-11 13:19:04.205', STATUS = 'COMPLETED' WHERE ID = 924050         
+Wed Jan 11 13:19:04 GMT 2012,Handler,Operation completed.
+Wed Jan 11 13:19:04 GMT 2012,After_PublishNotIntraDayPendingPriceData,COMPLETION: Succeeded
+Wed Jan 11 13:19:04 GMT 2012,PublishAllPendingPriceData,Stage 2 of 2 : TaskStart
+Wed Jan 11 13:19:04 GMT 2012,Handler,Execute update for records to Meta: 52304, Operation = INSERT
+Wed Jan 11 13:19:04 GMT 2012,Handler,Executing single command, cmd id = Insert.
+Wed Jan 11 13:19:04 GMT 2012,Handler,           INSERT INTO SY_TASK_HISTORY (ID, TASK_ID, START_TIME, END_TIME, STATUS)           VALUES (924051, 'PublishIntraDayPendingPriceData', '2012-01-11 13:19:04.22', NULL, 'Running')         
+Wed Jan 11 13:19:04 GMT 2012,Handler,Operation completed.
+Wed Jan 11 13:19:04 GMT 2012,PublishIntraDayPendingPriceData,START
+Wed Jan 11 13:19:04 GMT 2012,PublishIntraDayPendingPriceData,Stage 1 of 1 : GlobalLock
+Wed Jan 11 13:19:04 GMT 2012,PublishIntraDayPendingPriceData,Stage 1 of 1 : com.prosrm.taskmanager.taskwrappers.RuleProcessorTaskWrapper
+Wed Jan 11 13:19:04 GMT 2012,TaskInvocationStatus, created
+Wed Jan 11 13:19:04 GMT 2012,SessionManager,Start a new page session.
+Wed Jan 11 13:19:04 GMT 2012,PageSession,PageSession com.prosrm.data.dac.impl.ForwardDataSession@318f0acd created.
+Wed Jan 11 13:19:04 GMT 2012,PageSession,Forward Data Session query for DataElement.
+Wed Jan 11 13:19:04 GMT 2012,PageSession,Forward Data Session query for DataElement.
+Wed Jan 11 13:19:04 GMT 2012,Handler,SQL:            SELECT             DISTINCT A.PRICE_ITEM_ID           FROM             PM_PRICE_RECORD A,             PM_PRICE_ITEM B,             PM_PRICE_LEVEL C,             PM_COMPONENT_TYPE D           WHERE             A.APPROVAL_STATUS = 'PendingPublish' AND             A.PRICE_ITEM_ID = B.PRICE_ITEM_ID AND                         B.PRICE_LEVEL_ID = C.PRICE_LEVEL_ID AND             C.COMPONENT_TYPE_ID = D.COMPONENT_TYPE_ID AND             D.SCALE_BASIS = 'Time' AND             C.PUBLISH_LEVEL_FLAG = 1           ORDER BY A.PRICE_ITEM_ID         
+Wed Jan 11 13:19:04 GMT 2012,Handler,Create Cursor: Key=           SELECT             DISTINCT A.PRICE_ITEM_ID           FROM             PM_PRICE_RECORD A,             PM_PRICE_ITEM B,             PM_PRICE_LEVEL C,             PM_COMPONENT_TYPE D           WHERE             A.APPROVAL_STATUS = 'PendingPublish' AND             A.PRICE_ITEM_ID = B.PRICE_ITEM_ID AND                         B.PRICE_LEVEL_ID = C.PRICE_LEVEL_ID AND             C.COMPONENT_TYPE_ID = D.COMPONENT_TYPE_ID AND             D.SCALE_BASIS = 'Time' AND             C.PUBLISH_LEVEL_FLAG = 1           ORDER BY A.PRICE_ITEM_ID         
+Wed Jan 11 13:19:04 GMT 2012,Handler,Opened forward only cursor.
+Wed Jan 11 13:19:04 GMT 2012,Handler,New cursor created.
+Wed Jan 11 13:19:04 GMT 2012,QuerySession,Forward cursor created for metaid 300058
+Wed Jan 11 13:19:04 GMT 2012,QuerySession,Cursor released.
+Wed Jan 11 13:19:04 GMT 2012,PageSession,PageSession com.prosrm.data.dac.impl.ForwardDataSession@318f0acd closed.
+Wed Jan 11 13:19:04 GMT 2012,Handler,Execute update for records to Meta: 52304, Operation = UPDATE
+Wed Jan 11 13:19:04 GMT 2012,Handler,Executing single command, cmd id = Update.
+Wed Jan 11 13:19:04 GMT 2012,Handler,           UPDATE SY_TASK_HISTORY SET END_TIME = '2012-01-11 13:19:04.893', STATUS = 'COMPLETED' WHERE ID = 924051         
+Wed Jan 11 13:19:04 GMT 2012,Handler,Operation completed.
+Wed Jan 11 13:19:04 GMT 2012,PublishIntraDayPendingPriceData,COMPLETION: Succeeded
+Wed Jan 11 13:19:04 GMT 2012,Handler,Execute update for records to Meta: 52304, Operation = UPDATE
+Wed Jan 11 13:19:04 GMT 2012,Handler,Executing single command, cmd id = Fail.
+Wed Jan 11 13:19:04 GMT 2012,Handler,           UPDATE SY_TASK_HISTORY SET END_TIME = '2012-01-11 13:19:04.893', STATUS = 'FAILED' WHERE ID = 924048         
+Wed Jan 11 13:19:04 GMT 2012,Handler,Operation completed.
+Wed Jan 11 13:19:04 GMT 2012,PublishAllPendingPriceData,COMPLETION: Completed with errors
+Wed Jan 11 13:19:07 GMT 2012,OnDealAcceptTask,ThreadUnknown Task_15 exception: com.prosrm.rules.impl.RuleException: Exception executing plan name, CreateDealPriceRecordsPlan; reason:com.prosrm.common.OperationFailedException: Publish all pending price data task completed with errors or failed Exception executing plan name, CreateDealPriceRecordsPlan; reason:com.prosrm.common.OperationFailedException: Publish all pending price data task completed with errors or failed
+Wed Jan 11 13:19:07 GMT 2012,OnDealAcceptTask,Status : Succeeded
+Total chunks = 1
+Successful chunks = 0
+Failed chunks = 1
+
+Wed Jan 11 13:19:07 GMT 2012,Handler,Execute update for records to Meta: 52304, Operation = UPDATE
+Wed Jan 11 13:19:07 GMT 2012,Handler,Executing single command, cmd id = Fail.
+Wed Jan 11 13:19:07 GMT 2012,Handler,           UPDATE SY_TASK_HISTORY SET END_TIME = '2012-01-11 13:19:07.207', STATUS = 'FAILED' WHERE ID = 924047         
+Wed Jan 11 13:19:07 GMT 2012,Handler,Operation completed.
+Wed Jan 11 13:19:07 GMT 2012,OnDealAcceptTask,COMPLETION: Completed with errors
+Wed Jan 11 13:19:23 GMT 2012,Handler,Query DataElement with meta id = 52300
+Wed Jan 11 13:19:23 GMT 2012,Handler,SQL:            SELECT ID,                  DESCRIPTION,                  TASK_ID,                  RUN_AT,                  START_TIME,                  END_TIME,                  STATUS,                  UPDATE_USER,                  UPDATE_TIME           FROM SY_TASK_QUEUE           WHERE               STATUS = 'QUEUED'               AND (RUN_AT IS NULL OR RUN_AT <= ?)           ORDER BY UPDATE_TIME         
+Wed Jan 11 13:19:23 GMT 2012,Handler,           SELECT ID,                  DESCRIPTION,                  TASK_ID,                  RUN_AT,                  START_TIME,                  END_TIME,                  STATUS,                  UPDATE_USER,                  UPDATE_TIME           FROM SY_TASK_QUEUE           WHERE               STATUS = 'QUEUED'               AND (RUN_AT IS NULL OR RUN_AT <= '20120111 13:19:23')           ORDER BY UPDATE_TIME         
+Wed Jan 11 13:19:23 GMT 2012,Handler,Total results:0
+Wed Jan 11 13:19:23 GMT 2012,Handler,Query Operation completed.
