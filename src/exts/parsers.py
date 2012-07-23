@@ -49,7 +49,7 @@ class TextParser(object):
                                              _tmp[:19], 
                                              lvl,
                                              _tmp[20:])
-                if ts < nl['ms']:
+                if ts < nl.ms:
                     self._store.put(nl)
             j, k = k, k + 1
     
@@ -78,7 +78,7 @@ class XMLParser(object):
                                          elm[0].text, 
                                          elm[1].text,
                                          elm[3].text)
-                if nl['lvl'].lower() == 'error' and ts < nl['ms'] :
+                if nl.lvl.lower() == 'error' and ts < nl.ms :
                     self._store.put(nl)
                 while elm.getprevious() is not None:
                     del elm.getparent()[0]

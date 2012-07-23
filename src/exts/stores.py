@@ -19,35 +19,14 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 """
 import os, time, shutil, csv, json, threading
+from collections import namedtuple
 import cPickle as pickle
 
 exists = os.path.exists
 
 
-# ToDo: Implement this as namedtuple
-class Line(dict):
-    """ Line _subset_(dict) class.  Creates an instance of Line Object that 
-        includes to help with comparisons when sorting and filtering
-    """
-    def __init__(self, filename, milliseconds, 
-                 formattime, level, message,
-                 *args, **kwargs):
-        #subclass fo Dict
-        dict.__init__(self, *args, **kwargs)
-        #this object's attributes
-        self['filename'] = filename
-        self['ms'] = milliseconds
-        self['formattime'] = formattime
-        self['lvl'] = level
-        self['msg'] = message
-
-        def __str__(self):
-            """ string representation of Line class
-            """
-            _args = []
-            for k, v in self.items():
-                _args.insert(0, v)
-            return "\n".join(_args) + '\n'
+''' namedtuple instance of Line() class for lighter objects '''
+Line = namedtuple('Line', 'filename,ms,formattime,lvl,msg')
 
 class Codex(object):
     """The Codex Class helps decode plain text or XML attributes to a Line Object
@@ -103,13 +82,13 @@ class LogStore(object):
         """ Puts a Line object into the Repo while recording Error Count and
         last filename to assemble the summary's header"""
         if isinstance(obj, Line):
-            if obj['filename'] != self._lfile and self._lfile != None:
-                self._FILES[obj['filename']] = self._ERRC
+            if obj.filename != self._lfile and self._lfile != None:
+                self._FILES[obj.filename] = self._ERRC
                 self._ERRC = 1
             else:
                 self._data.append(obj)
                 self._ERRC += 1
-            self._lfile = obj['filename']
+            self._lfile = obj.filename
         else:
             raise ValueError("Something went horribly wrong in appending..")
         
@@ -135,9 +114,9 @@ class LogStore(object):
         """ close store a.k.a. assemble header, write updated lines to new summary
         file"""
         header = self._assemble()
-        _data = sorted(self._data, key=lambda x: x['ms'])
+        _data = sorted(self._data, key=lambda x: x.ms)
         # I dont like this because it's a bit complicated
-        _data = '\n\n'.join(['\n'.join([str(y) for y in reversed(x.values())]) for x in _data])
+        _data = '\n\n'.join(['\n'.join([str(y) for y in x.__getnewargs__()]) for x in _data])
         data = header + _data
         
         with open(self.logfile, 'w') as f:
@@ -152,6 +131,7 @@ class LogStore(object):
         '''tmp = self.logfile + '.tmp'
         with open(tmp, 'a') as tmpf:
             pass'''
+
     
 # ToDo: Implement this as namedtuple
 class ObjectStore(dict):
@@ -167,6 +147,7 @@ class ObjectStore(dict):
     Output file format is selectable between pickle, json, and csv.
     All three serialization formats are backed by fast C implementations.
     '''
+    
     def __init__(self, filename, flag='c', mode=None, format='pickle', *args, **kwds):
         self.flag = flag                    # r=readonly, c=create, or n=new
         self.mode = mode                    # None or an octal triple like 0644
