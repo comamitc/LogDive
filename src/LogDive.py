@@ -38,12 +38,29 @@ class LogDive(object):
         and Summary writer
         """
         _dirs = cfg.get('general', 'ppss_dirs').split(',')
-        self._ppssdirs = map(lambda x: '/'.join([x, self.LOG_DIR]), _dirs)
+        self.dirs = map(lambda x: '/'.join([x, self.LOG_DIR]), _dirs)
         self._arch = cfg.getboolean('general', 'archive')
         self.store = LogStore('/'.join([abs_path, self.DAT_FILE]))
         self.history = ObjectStore('/'.join([abs_path, self.HIST_FILE]))
         self.texter = TextParser(self.store)
         self.xster = XMLParser(self.store)
+        self._archs = [] #dirty implementation for archiving
+
+    def archive(self):
+        """ archive the old log files if mode is turned on"""
+        if self._arch:
+            print("archiving...")
+            ldir = None
+            zf = None
+            for ea in self._archs:
+                if ea[0] != ldir:
+                    if zf is not None: zf.close()
+                    ldir = ea[0]
+                    zf = zipfile.ZipFile('\\'.join([ea[0],'archive.zip']), 'a')
+                zf.write(ea[1], ea[2])
+                os.remove(ea[1])
+            if zf is not None: zf.close()
+            #print("Done archiving")
 
     def _get_lines(self, ff, ts):
         """ generic abstraction for triggering the right type if 
@@ -58,12 +75,12 @@ class LogDive(object):
             self.history[ff] = {'last': time.time()}
     
     #TODO:
-    # - add encoding for umlauts (readstring should be encoded)
+    # - add encoding for umlauts in logs
     def parse_logs(self):
         """ Function pages through given directories in config file
         then files in each directory, firing parsing based on 
         files modified at time and historical scan time."""
-        for dir in self._ppssdirs:
+        for dir in self.dirs:
             for f in os.listdir(dir):
                 ff = '/'.join([dir, f])
                 ffmod = int(os.stat(ff)[8])
@@ -74,23 +91,18 @@ class LogDive(object):
                         self._get_lines(ff, fflast)
                     elif ffmod < (time.time() - 432000):                            
                         #zip archiving :: file unmodified for 5 days
-                        if self._arch:  
-                            zf = zipfile.ZipFile('\\'.join([dir,'archive.zip']), 'a')
-                            zf.write(ff, f)
-                            os.remove(ff)
-                            zf.close()
+                        self._archs.append([dir, ff, f])
                 else: 
                     self._get_lines(ff, float(0))
                 end = time.time()
                 print("%s :: %s ms" % ((ff.split('/')[-1]).ljust(56), 
                                         str(end-start)[:10].rjust(15)))
                 # sync after each file
-                #   
                 self.history.sync()
         # sync summary
         self.store.close()
-
-
+        
+        
 if __name__ == "__main__":
     #    SCRIPT ENTRY
     #    CONFIGURATION SECTION BELOW
@@ -103,9 +115,16 @@ if __name__ == "__main__":
     cfg.read('%s' % '/'.join([abs_path, INIFILE]))
     
     #    Start parsing process
-    print("starting analysis...")
+    print("starting analysis:")
     diver = LogDive(cfg, abs_path)
     if cfg.getboolean('general', 'debug'):
         prof.run('diver.parse_logs()')
     else:
         diver.parse_logs()
+    print("finished scanning :: Analysis in %s" % '\\'.join([abs_path, 'logs']))
+    
+    #I don't like this implementation
+    diver.archive()
+    
+    print("DONE")
+    

@@ -85,7 +85,7 @@ class XMLParser(object):
             del ctx
         except Exception as error:
             print("Error parsing %s because %s. Skipping..." % (file, error))
-            return 
+            return #exit XML parse iteration and resume at next file
         
     
     
