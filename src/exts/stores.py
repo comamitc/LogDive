@@ -18,48 +18,14 @@ HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTIO
 OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE 
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 """
-import os, time, shutil, csv, json, threading
+import os, shutil, csv, json, threading
 from collections import namedtuple
 import cPickle as pickle
 
-exists = os.path.exists
-
+exists = os.path.exists #simplify this call
 
 ''' namedtuple instance of Line() class for lighter objects '''
 Line = namedtuple('Line', 'filename,ms,formattime,lvl,msg')
-
-class Codex(object):
-    """The Codex Class helps decode plain text or XML attributes to a Line Object
-    (acting as a Factory for Lines) and provides a nice clean hack for the Time
-    Objects in PPSS Log Files
-    """
-    #given time formats for PPSS logs
-    FORMATS = ["%Y-%m-%d %H:%M:%S"      , #.log
-               "%Y%m%d_%H.%M.%S"        , #.xml
-               "%a %b %d %H:%M:%S %Y"]    #.txt
-        
-    def decode(self, fn, t, lvl, msg):
-        """ decode 'line' to a Line Object """
-        t = self._hacktime(t, fn[-4:])
-        return Line(fn, t[0], t[1], lvl, msg)
-
-    def _hacktime(self, t, ext):
-        """ hack meant for time object recognition to aid in sorting 
-            return list [milliseconds, string formatted time]"""
-        try:       
-            if ext == '.log':
-                t = time.mktime(time.strptime(t, self.FORMATS[0]))
-            elif ext == '.xml':
-                t = time.mktime(time.strptime(t, self.FORMATS[1]))
-            elif ext == '.txt':
-                t = time.mktime(time.strptime(' '.join([t, 
-                                                        time.strftime('%Y')]),
-                                                        self.FORMATS[2]))
-            
-        except ValueError:
-            print ValueError("Error parsing time value: {0!r}".format(t))
-            t = time.time()
-        return [t, time.ctime(t)]
 
 
 class LogStore(object):
@@ -75,7 +41,6 @@ class LogStore(object):
         self.logfile = filename
         self._lfile = None
         self._lock = threading.Lock()
-        self.Codec = Codex()
     
     #should depreciate slowly
     def put(self, obj, key=None):
@@ -92,9 +57,11 @@ class LogStore(object):
         else:
             raise ValueError("Something went horribly wrong in appending..")
         
-    def put_many(self, obj, key=None):
+    def put_many(self, filename, obj, key=None):
         """ Merges an additional list with the current one to clean up the store interface"""
-        raise NotImplementedError
+        self._FILES[filename] = len(obj)
+        self._data.extend(obj)
+        
     
     def _assemble(self):
         """ private method used to assemble summary header"""
@@ -124,13 +91,9 @@ class LogStore(object):
             f.write(data)
             self._lock.release()
     
-    #ToDo: Implement sync mechanism for the text file (tmp file?) // could be handled by exit function
-    def sync(self):
-        # how to sync and sort?
-        raise NotImplementedError
-        '''tmp = self.logfile + '.tmp'
-        with open(tmp, 'a') as tmpf:
-            pass'''
+    def __exit__(self, *exc_info):
+        self.close()
+
 
     
 # ToDo: Implement this as namedtuple

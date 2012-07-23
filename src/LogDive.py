@@ -27,23 +27,24 @@ import cProfile as prof
 from exts.parsers import TextParser, XMLParser
 from exts.stores import ObjectStore, LogStore
 
+
 class LogDive(object):
     
     LOG_DIR = 'build/log'                                           #logs in PPSS Directory
     DAT_FILE = 'logs/LogAnalysis%s.log' % int(time.time())          #database file
     HIST_FILE = 'data/history.dat'                                  #do I need this?
     
-    def __init__(self, cfg, abs_path):
+    def __init__(self, abs_path, log_dirs, archive=False):
         """ Initializes LogDive configuration, Parsers, History recording
         and Summary writer
         """
-        _dirs = cfg.get('general', 'ppss_dirs').split(',')
+        _dirs = log_dirs.split(',')
         self.dirs = map(lambda x: '/'.join([x, self.LOG_DIR]), _dirs)
-        self._arch = cfg.getboolean('general', 'archive')
+        self._arch = archive
         self.store = LogStore('/'.join([abs_path, self.DAT_FILE]))
         self.history = ObjectStore('/'.join([abs_path, self.HIST_FILE]))
-        self.texter = TextParser(self.store)
-        self.xster = XMLParser(self.store)
+        self.texter = TextParser()
+        self.xster = XMLParser()
         self._archs = [] #dirty implementation for archiving
 
     def archive(self):
@@ -72,7 +73,8 @@ class LogDive(object):
         f_ext = ff[-4:]
         if _funcs.has_key(f_ext):
             func = _funcs[f_ext]
-            func(ff, ts)
+            _data = func(ff, ts)
+            self.store.put_many(ff, _data)
             self.history[ff] = {'last': time.time()}
     
     #TODO:
@@ -117,7 +119,9 @@ if __name__ == "__main__":
     
     #    Start parsing process
     print("starting analysis:")
-    diver = LogDive(cfg, abs_path)
+    diver = LogDive(abs_path, 
+                    cfg.get('general', 'ppss_dirs'), 
+                    cfg.getboolean('general', 'archive'))
     if cfg.getboolean('general', 'debug'):
         prof.run('diver.parse_logs()')
     else:
@@ -125,7 +129,7 @@ if __name__ == "__main__":
     print("finished scanning :: Analysis in %s" % '\\'.join([abs_path, 'logs']))
     
     #I don't like this implementation
-    diver.archive()
-    
+    #diver.archive()
+        
     print("DONE")
     

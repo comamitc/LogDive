@@ -7,7 +7,7 @@ includes = ['exts.parsers', 'exts.stores']
 
 setup(name='LogDive',
       author='Mitch Comardo',
-      version='1.0.7',
+      version='1.2.0',
       console=['src/LogDive.py'],
       options={ 'py2exe':
                 {

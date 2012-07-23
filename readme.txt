@@ -19,13 +19,20 @@ with debugging and expedite the debugging process in the case that the log files
 explanation. 
 
 
-Version		: 1.0.0
-Author 		: Mitchell Comardo
+Version			: 1.2.0
+Author 			: Mitchell Comardo
 Report Bugs To	: comamitc@gmail.com
 
 
 CHANGELOG:
 
+	1.2.0:
+		- put_many()	:: logstore func for cleaner implementation
+		- config.ini	:: better config variable passing
+	1.1.1:
+		- __exit__() for LogStore object
+	1.1.0:
+		- Line() object to lighter tuple object for speed
 	1.0.0:
 		- complete re-engineer
 	0.7.5:

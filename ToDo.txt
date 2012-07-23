@@ -1,10 +1,10 @@
-- 1.1.0 HistoryLog 	:: dict -> namedtuple implementation
+- 1.1.0 HistoryLog 	:: dict -> namedtuple implementation // maybe this isn't possible
 	- 1.2.0 Line 		:: dict -> namedtuple implementation
-- 1.3.0 put_many()	:: logstore func for cleaner implementation
+	- 1.3.0 put_many()	:: logstore func for cleaner implementation
 - 1.4.0 ALL			:: character encoding
 - 1.5.0 Archiving	:: cleaner implementation
-- 1.6.0 Config		:: better config passing || custom parser (see C implementation)?
+	- 1.6.0 Config		:: better config passing || custom parser (see C implementation)?
 - 1.7.0 Summary		:: print summary to prompt
-- 1.8.0 sync-exit	:: func on logstore error
+	- 1.8.0 sync-exit	:: func on logstore error
 - 1.9.0 			:: simplfy close in LogStore
 - 2.0.0 			:: check for updates?
