@@ -23,6 +23,8 @@ import cPickle as pickle
 
 exists = os.path.exists
 
+
+# ToDo: Implement this as namedtuple
 class Line(dict):
     """ Line _subset_(dict) class.  Creates an instance of Line Object that 
         includes to help with comparisons when sorting and filtering
@@ -137,7 +139,8 @@ class LogStore(object):
             self._lock.acquire()
             f.write(data)
             self._lock.release()
-            
+    
+    #ToDo: Implement sync mechanism for the text file (tmp file?)
     def sync(self):
         # how to sync and sort?
         raise NotImplementedError
@@ -145,7 +148,7 @@ class LogStore(object):
         with open(tmp, 'a') as tmpf:
             pass'''
     
-
+# ToDo: Implement this as namedtuple
 class ObjectStore(dict):
     ''' 
     Persistent dictionary with an API compatible with shelve and anydbm.

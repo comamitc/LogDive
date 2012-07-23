@@ -3,6 +3,6 @@
 .pydevproject
 *.log
 .settings
-./build
+build
 LogDive
 *.exe

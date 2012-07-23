@@ -1,0 +1,4 @@
+- HistoryLog 	:: dict -> namedtuple implementation
+- Line 		:: dict -> namedtuple implementation
+- ALL		:: character encoding
+- Archiving	:: cleaner implementation

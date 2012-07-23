@@ -1,7 +1,7 @@
 from distutils.core import setup
 import py2exe, sys
 
-sys.path.append('C:\\DEV\\PY\\LogDive\\src\\')
+sys.path.append('C:\\DEV\\PYTHON\\LogDive\\src\\')
 
 includes = ['exts.parsers', 'exts.stores']
 
@@ -14,7 +14,7 @@ setup(name='LogDive',
                 'dist_dir'      :   'LogDive', 
                 'packages'      :   ['gzip'],
                 'optimize'      :   2,
-                'bundle_files'  :   1,
+                #'bundle_files'  :   1,
                 'includes'      :   includes
                 }},
       zipfile=None,

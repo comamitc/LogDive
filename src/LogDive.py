@@ -53,6 +53,7 @@ class LogDive(object):
             ldir = None
             zf = None
             for ea in self._archs:
+                #have we already scanned this file in this directory?
                 if ea[0] != ldir:
                     if zf is not None: zf.close()
                     ldir = ea[0]
