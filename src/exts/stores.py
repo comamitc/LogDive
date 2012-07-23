@@ -98,6 +98,7 @@ class LogStore(object):
         self._lock = threading.Lock()
         self.Codec = Codex()
     
+    #should depreciate slowly
     def put(self, obj, key=None):
         """ Puts a Line object into the Repo while recording Error Count and
         last filename to assemble the summary's header"""
@@ -111,6 +112,10 @@ class LogStore(object):
             self._lfile = obj['filename']
         else:
             raise ValueError("Something went horribly wrong in appending..")
+        
+    def put_many(self, obj, key=None):
+        """ Merges an additional list with the current one to clean up the store interface"""
+        raise NotImplementedError
     
     def _assemble(self):
         """ private method used to assemble summary header"""
@@ -140,7 +145,7 @@ class LogStore(object):
             f.write(data)
             self._lock.release()
     
-    #ToDo: Implement sync mechanism for the text file (tmp file?)
+    #ToDo: Implement sync mechanism for the text file (tmp file?) // could be handled by exit function
     def sync(self):
         # how to sync and sort?
         raise NotImplementedError
