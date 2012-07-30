@@ -70,6 +70,7 @@ class LogStore(object):
             self._lock.acquire()
             f.write(data)
             self._lock.release()
+        
     
     def __exit__(self, *exc_info):
         self.close()

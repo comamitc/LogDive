@@ -23,7 +23,6 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 import os, time
 import ConfigParser
 import zipfile
-import cProfile as prof
 from exts.parsers import TextParser, XMLParser
 from exts.stores import ObjectStore, LogStore
 
@@ -111,9 +110,8 @@ if __name__ == "__main__":
     #    CONFIGURATION SECTION BELOW
     #
     INIFILE = 'config/config.ini'
-    
     abs_path = os.path.realpath('.')
-    
+       
     cfg = ConfigParser.ConfigParser()
     cfg.read('%s' % '/'.join([abs_path, INIFILE]))
     
@@ -123,13 +121,19 @@ if __name__ == "__main__":
                     cfg.get('general', 'ppss_dirs'), 
                     cfg.getboolean('general', 'archive'))
     if cfg.getboolean('general', 'debug'):
-        prof.run('diver.parse_logs()')
+        import cProfile as prof
+        import pstats
+        
+        prof.run('diver.parse_logs()', 'run.log')
+        p = pstats.Stats('run.log')
+        p.sort_stats('time')
+        p.print_stats()
     else:
         diver.parse_logs()
-    print("finished scanning :: Analysis in %s" % '\\'.join([abs_path, 'logs']))
+    
     
     #I don't like this implementation
     #diver.archive()
-        
-    print("DONE")
+    
+    print("Done!")
     

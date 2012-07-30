@@ -23,14 +23,15 @@ import lxml.etree as tree
 from collections import namedtuple
 from lxml import _elementpath as _dummy
 
+REGEX = '^\d{4}-\d{2}-\d{2}[ T]\d{2}:\d{2}:\d{2}.*|\[?[a-zA-Z]{3}\s[a-zA-Z]{3}\s\d{2}[ T]\d{2}:\d{2}:\d{2}.*$'
+
 FORMATS = ("%Y-%m-%d %H:%M:%S"   ,      #.log
            "%Y%m%d_%H.%M.%S"     ,      #.xml
            "%a %b %d %H:%M:%S %Y")      #.txt
 
 
-''' namedtuple instance of Line() class for lighter objects '''
+# namedtuple instance of Line() class for lighter objects 
 Line = namedtuple('Line', 'filename,time,ftime,lvl,msg')
-
 
 #Two Methods for parsing and transforming time... no need for object overhead
 def decode(fn, t, lvl, msg):
@@ -56,44 +57,49 @@ def _hacktime(t, format):
     t = time.mktime(time.strptime(t, format))    
     return (t, time.ctime(t))
 
+
 class TextParser(object):
-    
-    _tsa = re.compile(r'^\d{4}-\d{2}-\d{2}[ T]\d{2}:\d{2}:\d{2}.*$')                    #19
-    _tsb = re.compile(r'^\[?[a-zA-Z]{3}\s[a-zA-Z]{3}\s\d{2}[ T]\d{2}:\d{2}:\d{2}.*$')   #20
+    '''
+    NOTE:  These _sift & _split functions iterate over the file array twice (effectively)...
+    how to minimize this and process the line once identified
+    '''
+    _tsa = re.compile(REGEX)                                                             #19&20
+    #_tsb = re.compile(r'^\[?[a-zA-Z]{3}\s[a-zA-Z]{3}\s\d{2}[ T]\d{2}:\d{2}:\d{2}.*$')   #20
     _store = []
 
     def parse_text(self, file, ts):
         self.file = file
-        self.timestamp = ts
+        self.time = ts
         with open(file, 'r') as f:
-            self._sift(f.readlines(), ts)
+            self._sift(f.readlines())
         return self._store
 
-    def _split(self, c, i, ts):
+    def _split(self, c, i):
+        
         j, k = 0, 1
         s = len(i)
         while k < s:
             e, f = i[j], i[k]
             _tmp = "".join(c[e:f]).lower()
             lvl = 'INFO'
-            if 'error' in _tmp or 'exception' in _tmp:
+            if _tmp.__contains__('error') or _tmp.__contains__('exception'):
                 lvl = 'ERROR'
                 nl = decode(self.file, _tmp[:19], 
                             lvl,       _tmp[20:])
-                if ts < nl.time:
+                if self.time < nl.time:
                     self._store.append(nl)
             j, k = k, k + 1
     
-    def _sift(self, contents, ts):
+    def _sift(self, contents):
         i = 0
         _idxs = []
         for line in contents:
-            if self._tsb.match(line) or self._tsa.match(line):    
+            if self._tsa.match(line):# or self._tsb.match(line):    
                 _idxs.append(i)
             i += 1
         if len(_idxs) > 1:
-            self._split(contents, _idxs, ts)
-
+            self._split(contents, _idxs)
+            
 
 class XMLParser(object):
     
