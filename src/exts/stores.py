@@ -19,13 +19,9 @@ OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
 SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 """
 import os, shutil, csv, json, threading
-from collections import namedtuple
 import cPickle as pickle
 
 exists = os.path.exists #simplify this call
-
-''' namedtuple instance of Line() class for lighter objects '''
-Line = namedtuple('Line', 'filename,ms,formattime,lvl,msg')
 
 
 class LogStore(object):
@@ -35,34 +31,18 @@ class LogStore(object):
     """
     _ERRC = 1
     _FILES = {}
+    _lock = threading.Lock()
     
     def __init__(self, filename):
         self._data = []
         self.logfile = filename
         self._lfile = None
-        self._lock = threading.Lock()
     
-    #should depreciate slowly
-    def put(self, obj, key=None):
-        """ Puts a Line object into the Repo while recording Error Count and
-        last filename to assemble the summary's header"""
-        if isinstance(obj, Line):
-            if obj.filename != self._lfile and self._lfile != None:
-                self._FILES[obj.filename] = self._ERRC
-                self._ERRC = 1
-            else:
-                self._data.append(obj)
-                self._ERRC += 1
-            self._lfile = obj.filename
-        else:
-            raise ValueError("Something went horribly wrong in appending..")
-        
     def put_many(self, filename, obj, key=None):
         """ Merges an additional list with the current one to clean up the store interface"""
         self._FILES[filename] = len(obj)
         self._data.extend(obj)
         
-    
     def _assemble(self):
         """ private method used to assemble summary header"""
         summary = []
@@ -81,7 +61,7 @@ class LogStore(object):
         """ close store a.k.a. assemble header, write updated lines to new summary
         file"""
         header = self._assemble()
-        _data = sorted(self._data, key=lambda x: x.ms)
+        _data = sorted(self._data, key=lambda x: x.time)
         # I dont like this because it's a bit complicated
         _data = '\n\n'.join(['\n'.join([str(y) for y in x.__getnewargs__()]) for x in _data])
         data = header + _data

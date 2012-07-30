@@ -20,13 +20,17 @@ SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 """
 import re, time
 import lxml.etree as tree
-from stores import Line
+from collections import namedtuple
 from lxml import _elementpath as _dummy
-
 
 FORMATS = ("%Y-%m-%d %H:%M:%S"   ,      #.log
            "%Y%m%d_%H.%M.%S"     ,      #.xml
            "%a %b %d %H:%M:%S %Y")      #.txt
+
+
+''' namedtuple instance of Line() class for lighter objects '''
+Line = namedtuple('Line', 'filename,time,ftime,lvl,msg')
+
 
 #Two Methods for parsing and transforming time... no need for object overhead
 def decode(fn, t, lvl, msg):
@@ -38,7 +42,6 @@ def decode(fn, t, lvl, msg):
         elif ext == '.xml':
             t = _hacktime(t, FORMATS[1])
         elif ext == '.txt':
-            print("the most fucked up timestamp")
             t = _hacktime(' '.join([t, time.strftime('%Y')]), FORMATS[2])
         else:
             raise Exception("No parsing handler for file: {0!r}".format(fn))
@@ -53,26 +56,11 @@ def _hacktime(t, format):
     t = time.mktime(time.strptime(t, format))    
     return (t, time.ctime(t))
 
-def erroneous(s):
-    
-    errs = ('Error, error, Exception, exception, ERROR, EXCEPTION')
-    
-    for e in errs:
-        if e in s:
-            return True
-    return False
-        
-
 class TextParser(object):
     
     _tsa = re.compile(r'^\d{4}-\d{2}-\d{2}[ T]\d{2}:\d{2}:\d{2}.*$')                    #19
     _tsb = re.compile(r'^\[?[a-zA-Z]{3}\s[a-zA-Z]{3}\s\d{2}[ T]\d{2}:\d{2}:\d{2}.*$')   #20
-    err_a = ('error', 'exception')
-    #_era = re.compile('^.*error.*$',  re.IGNORECASE)
-    #_erb = re.compile('^.*exception.*$',  re.IGNORECASE)
-    
-    def __init__(self):
-        self._store = []
+    _store = []
 
     def parse_text(self, file, ts):
         self.file = file
@@ -92,7 +80,7 @@ class TextParser(object):
                 lvl = 'ERROR'
                 nl = decode(self.file, _tmp[:19], 
                             lvl,       _tmp[20:])
-                if ts < nl.ms:
+                if ts < nl.time:
                     self._store.append(nl)
             j, k = k, k + 1
     
@@ -109,8 +97,7 @@ class TextParser(object):
 
 class XMLParser(object):
     
-    def __init__(self):
-        self._store = []
+    _store = []
     
     def parse_xml(self, file, ts): 
         #try should catch malformed XML
@@ -119,7 +106,7 @@ class XMLParser(object):
             for evt, elm in ctx:
                 nl = decode(file,        elm[0].text, 
                             elm[1].text, elm[3].text)
-                if nl.lvl == 'ERROR' and ts < nl.ms :
+                if nl.lvl == 'ERROR' and ts < nl.time:
                     self._store.append(nl)
                 while elm.getprevious() is not None:
                     del elm.getparent()[0]
