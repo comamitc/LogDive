@@ -1,5 +1,3 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
 """
 Copyright (c) 2012 Mitchell Comardo
 
@@ -26,17 +24,19 @@ import zipfile
 from exts.parsers import TextParser, XMLParser
 from exts.stores import ObjectStore, LogStore
 
+#ToDo: turn file into a named tuple implementation
 
 class LogDive(object):
     
     LOG_DIR = 'build/log'                                           #logs in PPSS Directory
     DAT_FILE = 'logs/LogAnalysis%s.log' % int(time.time())          #database file
-    HIST_FILE = 'data/history.dat'                                  #do I need this?
-    
+    HIST_FILE = 'data/history.dat'                                  #data file for scan tracking
+    ARCH_LIM = (5 * 24 * 60 * 60)                                   #5 day threshold for archiving
+        
     def __init__(self, abs_path, log_dirs, archive=False):
         """ Initializes LogDive configuration, Parsers, History recording
-        and Summary writer
-        """
+        and summary writer
+        """    
         _dirs = log_dirs.split(',')
         self.dirs = map(lambda x: '/'.join([x, self.LOG_DIR]), _dirs)
         self._arch = archive
@@ -44,24 +44,13 @@ class LogDive(object):
         self.history = ObjectStore('/'.join([abs_path, self.HIST_FILE]))
         self.texter = TextParser()
         self.xster = XMLParser()
-        self._archs = [] #dirty implementation for archiving
 
-    def archive(self):
+    def archive(self, dir, fullpath, file):
         """ archive the old log files if mode is turned on"""
-        if self._arch:
-            print("archiving...")
-            ldir = None
-            zf = None
-            for ea in self._archs:
-                #have we already scanned this file in this directory?
-                if ea[0] != ldir:
-                    if zf is not None: zf.close()
-                    ldir = ea[0]
-                    zf = zipfile.ZipFile('\\'.join([ea[0],'archive.zip']), 'a')
-                zf.write(ea[1], ea[2])
-                os.remove(ea[1])
-            if zf is not None: zf.close()
-            #print("Done archiving")
+        zf = zipfile.ZipFile('\\'.join([dir,'archive.zip']), 'a')
+        zf.write(fullpath, file)
+        os.remove(fullpath)
+        zf.close()
 
     def _get_lines(self, ff, ts):
         """ generic abstraction for triggering the right type if 
@@ -86,15 +75,14 @@ class LogDive(object):
             for f in os.listdir(dir):
                 ff = '/'.join([dir, f])
                 ffmod = int(os.stat(ff)[8])
-                start = time.time()
-                if self.history.has_key(ff):
+                start = time.time()          
+                if self.history.has_key(ff): #old file that has be scanned
                     fflast = self.history[ff]['last']
-                    if ffmod > fflast:
+                    if ffmod > fflast: #has file been modified?
                         self._get_lines(ff, fflast)
-                    elif ffmod < (time.time() - 432000):                            
-                        #zip archiving :: file unmodified for 5 days
-                        self._archs.append([dir, ff, f])
-                else: 
+                    elif ffmod < (time.time() - self.ARCH_LIM) and self._arch: #is file ready for archiving  
+                        self.archive(dir, ff, f)
+                else: #new file that has never be scanned
                     self._get_lines(ff, float(0))
                 end = time.time()
                 print("%s :: %s ms" % ((ff.split('/')[-1]).ljust(56), 
@@ -111,7 +99,7 @@ if __name__ == "__main__":
     #
     INIFILE = 'config/config.ini'
     abs_path = os.path.realpath('.')
-       
+    
     cfg = ConfigParser.ConfigParser()
     cfg.read('%s' % '/'.join([abs_path, INIFILE]))
     
@@ -123,17 +111,12 @@ if __name__ == "__main__":
     if cfg.getboolean('general', 'debug'):
         import cProfile as prof
         import pstats
-        
         prof.run('diver.parse_logs()', 'run.log')
         p = pstats.Stats('run.log')
         p.sort_stats('time')
         p.print_stats()
     else:
         diver.parse_logs()
-    
-    
-    #I don't like this implementation
-    #diver.archive()
     
     print("Done!")
     

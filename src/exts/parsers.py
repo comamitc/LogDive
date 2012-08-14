@@ -91,10 +91,12 @@ class TextParser(object):
             j, k = k, k + 1
     
     def _sift(self, contents):
+        ''' this algorithm is 2n (n being number of lines in a file) causing us to
+        iterate twice... how to solve issue?'''
         i = 0
         _idxs = []
         for line in contents:
-            if self._tsa.match(line):# or self._tsb.match(line):    
+            if self._tsa.match(line):    
                 _idxs.append(i)
             i += 1
         if len(_idxs) > 1:

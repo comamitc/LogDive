@@ -1,13 +1,13 @@
 from distutils.core import setup
 import py2exe, sys
 
-sys.path.append('C:\\DEV\\PYTHON\\LogDive\\src\\')
+sys.path.append('C:\\DEV\\PY\\LogDive\\src\\')
 
 includes = ['exts.parsers', 'exts.stores']
 
 setup(name='LogDive',
       author='Mitch Comardo',
-      version='1.2.0',
+      version='1.1.7',
       console=['src/LogDive.py'],
       options={ 'py2exe':
                 {
